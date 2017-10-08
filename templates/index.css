@@ -14,6 +14,7 @@ h1 {
     text-align: right;
     font-size: 4rem;
     text-transform: uppercase;
+    cursor: default;
 }
 .yellow {
     background-color: #FFED00;

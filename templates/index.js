@@ -93,7 +93,7 @@ $("form#single").submit(function (e) {
     });
 });
 
-$("form#many").submit(function (e) {
+$("h1").click(function (e) {
     e.preventDefault();
     _.each(_.range(10), function(i) {
         var num = Math.floor(Math.random() * 10);

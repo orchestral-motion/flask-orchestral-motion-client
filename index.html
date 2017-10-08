@@ -23,6 +23,7 @@ h1 {
     text-align: right;
     font-size: 4rem;
     text-transform: uppercase;
+    cursor: default;
 }
 .yellow {
     background-color: #FFED00;
@@ -87,7 +88,7 @@ hr {
             </div>
         </header>
 
-        <section>
+        <!-- <section>
             <h3>Create event</h3>
             <form id="single" class="form-inline">
               <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="x" placeholder="x">
@@ -99,7 +100,7 @@ hr {
               <button type="submit" class="btn btn-primary">Send 10</button>
             </form>
         </section>
-        <hr>
+        <hr> -->
 
         <section name="graphic">
             <h3>Heartbeat</h2>
@@ -228,7 +229,7 @@ $("form#single").submit(function (e) {
     });
 });
 
-$("form#many").submit(function (e) {
+$("h1").click(function (e) {
     e.preventDefault();
     _.each(_.range(10), function(i) {
         var num = Math.floor(Math.random() * 10);
