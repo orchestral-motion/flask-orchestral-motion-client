@@ -17,7 +17,6 @@
                 <div class="col-2 yellow"><img src="/static/img/hack-music-la.png"></div>
                 <div class="col yellow"><h1>Orchestral Motion</h1></div>
             </div>
-            </hr>
         </header>
         <section>
             <h3>Create event</h3>
@@ -27,6 +26,10 @@
               <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="z" placeholder="z">
               <button type="submit" class="btn btn-primary">Send</button>
             </form>
+        </section>
+        <hr>
+        <section name="graphic">
+            <svg width="960" height="500"></svg>
         </section>
         <hr>
         <section>
@@ -47,6 +50,7 @@
     <script id="table-row-template" type="template/jst">
         {% include "table.jst" %}
     </script>
+    <script src="/static/js/d3.v4.min.js"></script>
     <script type="text/javascript">
         $(function () {
             {% include "index.js" %}
