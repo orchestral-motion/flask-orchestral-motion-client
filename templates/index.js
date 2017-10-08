@@ -45,6 +45,10 @@ var updateChart = function () {
     // Select the section we want to apply our changes to
     var svg = d3.select("svg").transition();
 
+    data.sort(function(x, y){
+       return d3.ascending(x.timestamp, y.timestamp);
+    })
+
     // Make the changes
     svg.select(".line")   // change the line
         .duration(750)
@@ -67,7 +71,7 @@ webSocketBridge.demultiplex('position', function(payload, streamName) {
         var tr = template({ obj: payload.data });
         table.prepend(tr);
         var parsedData = parseRow(payload.data);
-        data.unshift(parsedData);
+        data.push(parsedData);
         updateChart();
     }
 });
