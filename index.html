@@ -149,7 +149,10 @@ var y = d3.scaleLinear()
 
 var line = d3.line()
     .x(function(d) { return x(d.timestamp); })
-    .y(function(d) { return y(d.x); });
+    .y(function(d) {
+        d.distance = distance(d);
+        return y(d.distance);
+    });
 
 var parseRow = function (d) {
     d.timestamp = parseTime(d.timestamp);
@@ -157,11 +160,21 @@ var parseRow = function (d) {
     d.y = +d.y;
     d.z = +d.z;
     return d;
-}
+};
+
+var distance = function (d) {
+    var xAvg = d3.mean(data, function (d) { return d.x });
+    var yAvg = d3.mean(data, function (d) { return d.y });
+    var zAvg = d3.mean(data, function (d) { return d.x });
+    var xDistance = d.x - xAvg;
+    var yDistance = d.y - yAvg;
+    var zDistance = d.z - zAvg;
+    return d3.mean([xDistance, yDistance, zDistance]);
+};
 
 var data = [];
 x.domain(d3.extent(data, function(d) { return d.timestamp; }));
-y.domain(d3.extent(data, function(d) { return d.x; }));
+y.domain(d3.extent(data, function(d) { return distance(d); }));
 g.append("path")
     .datum(data)
     .attr("fill", "none")
@@ -174,7 +187,7 @@ g.append("path")
 
 var updateChart = function () {
     x.domain(d3.extent(data, function(d) { return d.timestamp; }));
-    y.domain(d3.extent(data, function(d) { return d.x; }));
+    y.domain(d3.extent(data, function(d) { return distance(d); }));
 
     // Select the section we want to apply our changes to
     var svg = d3.select("svg").transition();
