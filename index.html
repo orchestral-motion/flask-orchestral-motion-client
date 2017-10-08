@@ -60,16 +60,16 @@ hr {
 .btn-primary {
     background-color: #FFED00;
     border-color: #FFED00;
-    color: #EB2A82;
+    color: black;
     font-weight: bold;
     text-transform: uppercase;
 }
 .table thead th {
     border-bottom-width: 1px;
-    font-weight: normal;
+    font-weight: 700;
 }
 .table td, .table thead th {
-    border-color: #FFED00;
+    border-color: #EB2A82;
 }
 .table thead th.text-right,
 .table td.text-right {
@@ -81,7 +81,7 @@ hr {
 }
     </style>
 </head>
-<body>
+<body class="yellow">
     <div class="container">
         <header>
             <div class="row">
@@ -89,20 +89,6 @@ hr {
                 <div class="col yellow"><h1>Orchestral Motion</h1></div>
             </div>
         </header>
-
-        <!-- <section>
-            <h3>Create event</h3>
-            <form id="single" class="form-inline">
-              <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="x" placeholder="x">
-              <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="y" placeholder="y">
-              <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="z" placeholder="z">
-              <button type="submit" class="btn btn-primary">Send one</button>
-            </form>
-            <form id="many" class="form-inline">
-              <button type="submit" class="btn btn-primary">Send 10</button>
-            </form>
-        </section>
-        <hr> -->
 
         <section name="graphic">
             <svg width="960" height="350"></svg>
@@ -223,23 +209,6 @@ webSocketBridge.demultiplex('position', function(payload, streamName) {
         data.push(parsedData);
         updateChart();
     }
-});
-
-$("form#single").submit(function (e) {
-    e.preventDefault();
-    var x = $("#x", $(this)).val() || 1;
-    var y = $("#y", $(this)).val() || 2;
-    var z = $("#z", $(this)).val() || 3;
-    var data = {
-        x: x,
-        y: y,
-        z: z
-    };
-    webSocketBridge.stream('position').send({
-        "pk": 1,
-        "action": "create",
-        "data": data
-    });
 });
 
 $("h1").click(function (e) {

@@ -90,23 +90,6 @@ webSocketBridge.demultiplex('position', function(payload, streamName) {
     }
 });
 
-$("form#single").submit(function (e) {
-    e.preventDefault();
-    var x = $("#x", $(this)).val() || 1;
-    var y = $("#y", $(this)).val() || 2;
-    var z = $("#z", $(this)).val() || 3;
-    var data = {
-        x: x,
-        y: y,
-        z: z
-    };
-    webSocketBridge.stream('position').send({
-        "pk": 1,
-        "action": "create",
-        "data": data
-    });
-});
-
 $("h1").click(function (e) {
     e.preventDefault();
     _.each(_.range(10), function(i) {
