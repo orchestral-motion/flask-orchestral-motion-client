@@ -55,6 +55,9 @@ hr {
     font-weight: bold;
     text-transform: uppercase;
 }
+.table table {
+    margin-top: 2rem;
+}
 .table thead th {
     border-bottom-width: 1px;
     font-weight: 700;
@@ -69,4 +72,11 @@ hr {
 .line {
     stroke-width: 5px;
     stroke: #EB2A82;
+}
+caption {
+    caption-side: top;
+    text-align: right;
+}
+caption a {
+    color: #EB2A82;
 }
