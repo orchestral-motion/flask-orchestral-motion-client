@@ -64,6 +64,7 @@ webSocketBridge.connect(ws_path);
 webSocketBridge.listen();
 
 webSocketBridge.demultiplex('position', function(payload, streamName) {
+    $("section").show();
     // Handle different actions
     if (payload.action == "create") {
         var tr = template({ obj: payload.data });

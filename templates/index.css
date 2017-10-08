@@ -33,6 +33,9 @@ h3 {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
+section {
+    display: none;
+}
 
 hr {
   margin-top: 2rem;
