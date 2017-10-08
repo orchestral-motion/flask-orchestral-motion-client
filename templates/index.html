@@ -1,68 +1,52 @@
 <html>
 <head>
-    <title>Orchestral Motion data dashboard</title>
+    <title>Orchestral Motion</title>
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/static/js/underscore.min.js"></script>
     <script src="/static/js/websocketbridge.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
     <style>
-        body {
-          padding-top: 2rem;
-          padding-bottom: 2rem;
-        }
-
-        h3 {
-          margin-top: 2rem;
-          margin-bottom: 2rem;
-        }
-
-        .row {
-          margin-bottom: 2rem;
-        }
-        .row .row {
-          margin-top: 2rem;
-          margin-bottom: 0;
-        }
-        [class*="col-"] {
-          padding-top: 1rem;
-          padding-bottom: 1rem;
-        }
-
-        hr {
-          margin-top: 2rem;
-          margin-bottom: 2rem;
-        }
-        img {width: 100%;}
+        {% include "index.css" %}
     </style>
 </head>
 <body>
     <div class="container">
         <header>
             <div class="row">
-                <div class="col-2"><img src="/static/img/hack-music-la.png"></div>
-                <div class="col"><h1>Orchestral Motion data dashboard</h1></div>
+                <div class="col-2 yellow"><img src="/static/img/hack-music-la.png"></div>
+                <div class="col yellow"><h1>Orchestral Motion</h1></div>
             </div>
             </hr>
         </header>
-        <hr>
         <section>
             <h3>Create event</h3>
-            <button>Now!</button>
+            <form class="form-inline">
+              <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="x" placeholder="x">
+              <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="y" placeholder="y">
+              <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="z" placeholder="z">
+              <button type="submit" class="btn btn-primary">Send</button>
+            </form>
         </section>
         <hr>
         <section>
             <h3>Latest events</h2>
-            <table class="table">
+            <table id="table" class="table">
               <thead>
                 <tr>
                     <th>Timestamp</th>
-                    <th>x</th>
-                    <th>y</th>
-                    <th>z</th>
+                    <th class="text-right">x</th>
+                    <th class="text-right">y</th>
+                    <th class="text-right">z</th>
                 </tr>
              </thead>
+             <tbody></tbody>
             </table>
         </section>
     </div>
+    <script id="table-row-template" type="template/jst">
+        {% include "table.jst" %}
+    </script>
     <script type="text/javascript">
         $(function () {
             {% include "index.js" %}

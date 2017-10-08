@@ -1,7 +1,8 @@
 var ws_path =  "wss://murmuring-dawn-85833.herokuapp.com/stream/";
-var ul = $("#events ul");
+var table = $("#table tbody");
+var form = $("form");
+var template = _.template($("#table-row-template").html());
 console.log("Connecting to " + ws_path);
-console.log("Writing to " + ul);
 var webSocketBridge = new channels.WebSocketBridge();
 webSocketBridge.connect(ws_path);
 webSocketBridge.listen();
@@ -9,20 +10,24 @@ webSocketBridge.demultiplex('position', function(payload, streamName) {
     console.log(payload);
     // Handle different actions
     if (payload.action == "create") {
-        var li = "<li>" + payload.data.timestamp + "</li>"
-        ul.append(li);
+        var tr = template({ obj: payload.data });
+        table.prepend(tr);
     }
 });
-$("button").click(function () {
-    console.log("Create!");
+form.submit(function (e) {
+    e.preventDefault();
+    var x = $("#x", form).val() || 1;
+    var y = $("#y", form).val() || 2;
+    var z = $("#z", form).val() || 3;
+    var data = {
+        x: x,
+        y: y,
+        z: z
+    };
     webSocketBridge.stream('position').send({
         "pk": 1,
         "action": "create",
-        "data": {
-            "x": 1,
-            "y": 2,
-            "z": 3
-        }
+        "data": data
     });
 });
 // Helpful debugging
