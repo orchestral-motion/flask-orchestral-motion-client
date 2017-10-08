@@ -18,20 +18,26 @@
                 <div class="col yellow"><h1>Orchestral Motion</h1></div>
             </div>
         </header>
+
         <section>
             <h3>Create event</h3>
-            <form class="form-inline">
+            <form id="single" class="form-inline">
               <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="x" placeholder="x">
               <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="y" placeholder="y">
               <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="z" placeholder="z">
-              <button type="submit" class="btn btn-primary">Send</button>
+              <button type="submit" class="btn btn-primary">Send one</button>
+            </form>
+            <form id="many" class="form-inline">
+              <button type="submit" class="btn btn-primary">Send 10</button>
             </form>
         </section>
         <hr>
+
         <section name="graphic">
             <svg width="960" height="500"></svg>
         </section>
         <hr>
+
         <section>
             <h3>Latest events</h2>
             <table id="table" class="table">
