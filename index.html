@@ -241,8 +241,16 @@ $("h1").click(function (e) {
             "action": "create",
             "data": data
         });
-    })
+    });
 });
+
+$("img").click(function (e) {
+    e.preventDefault();
+    data = [];
+    updateChart();
+    $("tr", table).slice(1).remove()
+    $("section").hide();
+})
 
 // Helpful debugging
 webSocketBridge.socket.addEventListener('open', function() { console.log("Connected to notification socket"); });
