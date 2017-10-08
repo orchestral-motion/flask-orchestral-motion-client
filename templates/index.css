@@ -54,6 +54,7 @@ hr {
 }
 .table thead th {
     border-bottom-width: 1px;
+    font-weight: normal;
 }
 .table td, .table thead th {
     border-color: #FFED00;
@@ -61,4 +62,8 @@ hr {
 .table thead th.text-right,
 .table td.text-right {
     width: 100px;
+}
+.line {
+    stroke-width: 5px;
+    stroke: #EB2A82;
 }

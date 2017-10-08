@@ -16,33 +16,45 @@ var line = d3.line()
     .x(function(d) { return x(d.timestamp); })
     .y(function(d) { return y(d.x); });
 
-d3.csv("/static/data/test.csv?foo=baz", function(d) {
-  d.timestamp = parseTime(d.timestamp);
-  d.x = +d.x;
-  d.y = +d.y;
-  d.z = +d.z;
-  return d;
-}, function(error, data) {
-  if (error) throw error;
-  console.log(data);
-  x.domain(d3.extent(data, function(d) { return d.timestamp; }));
-  y.domain(d3.extent(data, function(d) { return d.x; }));
+var parseRow = function (d) {
+    d.timestamp = parseTime(d.timestamp);
+    d.x = +d.x;
+    d.y = +d.y;
+    d.z = +d.z;
+    return d;
+}
 
-  g.append("path")
-      .datum(data)
-      .attr("fill", "none")
-      .attr("stroke", "steelblue")
-      .attr("stroke-linejoin", "round")
-      .attr("stroke-linecap", "round")
-      .attr("stroke-width", 1.5)
-      .attr("d", line);
-});
+var data = [];
+x.domain(d3.extent(data, function(d) { return d.timestamp; }));
+y.domain(d3.extent(data, function(d) { return d.x; }));
+g.append("path")
+    .datum(data)
+    .attr("fill", "none")
+    .attr("stroke", "steelblue")
+    .attr("stroke-linejoin", "round")
+    .attr("stroke-linecap", "round")
+    .attr("stroke-width", 1.5)
+    .attr("class", "line")
+    .attr("d", line);
 
+var updateChart = function () {
+    console.log("updateChart");
+    x.domain(d3.extent(data, function(d) { return d.timestamp; }));
+    y.domain(d3.extent(data, function(d) { return d.x; }));
 
-var ws_path =  "wss://murmuring-dawn-85833.herokuapp.com/stream/";
+    // Select the section we want to apply our changes to
+    var svg = d3.select("svg").transition();
+
+    // Make the changes
+    svg.select(".line")   // change the line
+        .duration(750)
+        .attr("d", line(data));
+}
+
 var table = $("#table tbody");
 var template = _.template($("#table-row-template").html());
 
+var ws_path =  "wss://murmuring-dawn-85833.herokuapp.com/stream/";
 console.log("Connecting to " + ws_path);
 var webSocketBridge = new channels.WebSocketBridge();
 webSocketBridge.connect(ws_path);
@@ -54,6 +66,9 @@ webSocketBridge.demultiplex('position', function(payload, streamName) {
     if (payload.action == "create") {
         var tr = template({ obj: payload.data });
         table.prepend(tr);
+        var parsedData = parseRow(payload.data);
+        data.unshift(parsedData);
+        updateChart();
     }
 });
 
@@ -83,7 +98,6 @@ $("form#many").submit(function (e) {
             y: num,
             z: num
         };
-        console.log(data)
         webSocketBridge.stream('position').send({
             "pk": 1,
             "action": "create",
