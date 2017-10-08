@@ -38,7 +38,6 @@ g.append("path")
     .attr("d", line);
 
 var updateChart = function () {
-    console.log("updateChart");
     x.domain(d3.extent(data, function(d) { return d.timestamp; }));
     y.domain(d3.extent(data, function(d) { return d.x; }));
 
@@ -65,7 +64,6 @@ webSocketBridge.connect(ws_path);
 webSocketBridge.listen();
 
 webSocketBridge.demultiplex('position', function(payload, streamName) {
-    console.log(payload);
     // Handle different actions
     if (payload.action == "create") {
         var tr = template({ obj: payload.data });
