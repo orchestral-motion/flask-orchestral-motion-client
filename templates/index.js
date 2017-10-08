@@ -51,6 +51,7 @@ g.append("path")
     .attr("d", line);
 
 var updateChart = function () {
+    data = data.slice(-1000);
     x.domain(d3.extent(data, function(d) { return d.timestamp; }));
     y.domain(d3.extent(data, function(d) { return distance(d); }));
 
@@ -62,6 +63,7 @@ var updateChart = function () {
     })
 
     // Make the changes
+    // svg.select(".line").remove()
     svg.select(".line")   // change the line
         .duration(750)
         .attr("d", line(data));
