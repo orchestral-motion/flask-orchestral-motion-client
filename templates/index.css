@@ -13,6 +13,7 @@ h1 {
     margin: 3rem 1rem 0 0;
     text-align: right;
     font-size: 4rem;
+    text-transform: uppercase;
 }
 .yellow {
     background-color: #FFED00;
